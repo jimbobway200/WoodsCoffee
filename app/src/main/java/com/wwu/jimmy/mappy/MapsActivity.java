@@ -1,5 +1,6 @@
 package com.wwu.jimmy.mappy;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +11,24 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Spinner unitTypeSpinner;
+
+    PolylineOptions lineOps = new PolylineOptions().width(5).color(Color.RED);
+
+    List<Polyline> userLines = new ArrayList<Polyline>();
+    List<Marker> userMarkers = new ArrayList<Marker>();
 
 
     //Location GPS Cords
@@ -49,7 +62,6 @@ public class MapsActivity extends FragmentActivity {
         setContentView(R.layout.activity_maps);
         addListenerForSpinner();
         setUpMapIfNeeded();
-//        centerOnPoint(50);
     }
 
     private void addListenerForSpinner() {
@@ -71,7 +83,7 @@ public class MapsActivity extends FragmentActivity {
     private void centerOnPoint(int position) {
             switch (position){
                 case 0:
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(home));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos1));
                     break;
                 case 1:
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos2));
@@ -84,6 +96,24 @@ public class MapsActivity extends FragmentActivity {
                     break;
                 case 4:
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos5));
+                    break;
+                case 5:
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos6));
+                    break;
+                case 6:
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos7));
+                    break;
+                case 7:
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos8));
+                    break;
+                case 8:
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos9));
+                    break;
+                case 9:
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos10));
+                    break;
+                case 10:
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos11));
                     break;
                 default:
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(home));
@@ -135,11 +165,10 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, 14.0f));
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
-
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setOnMarkerClickListener(userMarkerClickListener);
         mMap.addMarker(new MarkerOptions().position(Pos1).title(Pos1_string));
         mMap.addMarker(new MarkerOptions().position(Pos2).title(Pos2_string));
         mMap.addMarker(new MarkerOptions().position(Pos3).title(Pos3_string));
@@ -152,9 +181,49 @@ public class MapsActivity extends FragmentActivity {
         mMap.addMarker(new MarkerOptions().position(Pos10).title(Pos10_string));
         mMap.addMarker(new MarkerOptions().position(Pos11).title(Pos11_string));
 
-
-//        centerOnPoint(50); //will tell it to focus on WWU as default
-
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                Marker m = mMap.addMarker(new MarkerOptions()
+                                .position(point)
+                                .title(Double.toString(point.latitude) + ", " + Double.toString(point.latitude))
+                );
+                userMarkers.add(m);
+            }
+        });
 
     }
+
+
+    private GoogleMap.OnMarkerClickListener userMarkerClickListener = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            lineOps.add(marker.getPosition()).width(5).color(Color.RED);
+            Polyline line = mMap.addPolyline(lineOps);
+
+            userLines.add(line);
+            marker.showInfoWindow();
+            return true;
+        }
+    };
+
+    public void clearLines(View v){
+        Iterator<Polyline> i = userLines.iterator();
+        while (i.hasNext()) {
+            Polyline l = i.next();
+            l.remove();
+        }
+        lineOps = new PolylineOptions().width(5).color(Color.RED);
+        userLines.clear();
+    }
+
+    public void clearUserMarkers(View v){
+        Iterator<Marker> i = userMarkers.iterator();
+        while (i.hasNext()) {
+            Marker m = i.next();
+            m.remove();
+        }
+        userMarkers.clear();
+    }
+
 }

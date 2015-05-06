@@ -1,6 +1,5 @@
 <resources>
     <string-array name="locations">
-        <item>WWU</item>
         <item>Guide Meridian</item>
         <item>BakerView</item>
         <item>Barkley Village</item>
