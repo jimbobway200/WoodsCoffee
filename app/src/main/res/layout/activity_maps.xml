@@ -1,0 +1,73 @@
+<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" android:id="@+id/map" tools:context=".MapsActivity"-->
+    <!--android:name="com.google.android.gms.maps.SupportMapFragment" />-->
+
+
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:map="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:gravity="top|center">
+<!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+<!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+<!--android:paddingTop="@dimen/activity_vertical_margin"-->
+<!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+<!--tools:ignore="MissingPrefix"-->
+<!--tools:context=".MapsActivity">-->
+
+
+<Spinner
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/unit_Place_Spinner"
+    android:entries="@array/locations"
+    android:layout_alignTop="@+id/textView"
+    android:layout_toRightOf="@+id/textView"
+    android:layout_toEndOf="@+id/textView">
+</Spinner>
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/clearMarkers"
+    android:onClick="clearUserMarkers"
+    android:text="Clear My Markers"
+    android:layout_alignParentTop="true"
+    android:layout_toRightOf="@+id/clearLines"
+    android:layout_toEndOf="@+id/clearLines" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/clearLines"
+    android:onClick="clearLines"
+    android:text="Clear Lines" />
+
+
+
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@+id/map" tools:context=".MapsActivity"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_below="@id/clearMarkers"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Locations:"
+    android:id="@+id/textView"
+    android:layout_marginLeft="34dp"
+    android:layout_marginStart="34dp"
+    android:textSize="20dp"
+    android:layout_alignTop="@+id/clearMarkers"
+    android:layout_toRightOf="@+id/clearMarkers"
+    android:layout_toEndOf="@+id/clearMarkers" />
+
+
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<resources>
+    <string-array name="locations">
+        <item>Guide Meridian</item>
+        <item>BakerView</item>
+        <item>Barkley Village</item>
+        <item>James St</item>
+        <item>Flatiron</item>
+        <item>Railroad Ave</item>
+        <item>Lakeway</item>
+        <item>Sehome</item>
+        <item>Boulevard Park</item>
+        <item>Burlington</item>
+        <item>Mount Vernon</item>
+    </string-array>
+</resources>
+
