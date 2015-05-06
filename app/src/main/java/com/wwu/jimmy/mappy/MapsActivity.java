@@ -48,10 +48,8 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         addListenerForSpinner();
-
         setUpMapIfNeeded();
-
-        centerOnPoint(50);
+//        centerOnPoint(50);
     }
 
     private void addListenerForSpinner() {
@@ -73,7 +71,7 @@ public class MapsActivity extends FragmentActivity {
     private void centerOnPoint(int position) {
             switch (position){
                 case 0:
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos1));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(home));
                     break;
                 case 1:
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(Pos2));
@@ -136,10 +134,12 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, 14.0f));
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
+
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
-
-
         mMap.addMarker(new MarkerOptions().position(Pos1).title(Pos1_string));
         mMap.addMarker(new MarkerOptions().position(Pos2).title(Pos2_string));
         mMap.addMarker(new MarkerOptions().position(Pos3).title(Pos3_string));
@@ -151,6 +151,7 @@ public class MapsActivity extends FragmentActivity {
         mMap.addMarker(new MarkerOptions().position(Pos9).title(Pos9_string));
         mMap.addMarker(new MarkerOptions().position(Pos10).title(Pos10_string));
         mMap.addMarker(new MarkerOptions().position(Pos11).title(Pos11_string));
+
 
 //        centerOnPoint(50); //will tell it to focus on WWU as default
 
